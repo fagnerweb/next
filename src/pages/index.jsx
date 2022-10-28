@@ -1,10 +1,26 @@
+import P from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import config from '../config';
+import { mapData } from '../api/map-data';
+import { Home } from '../templates/Home';
 
-const Heading = styled.h1`
-  background-color: ${({ theme }) => theme.colors.secondaryColor};
-`;
-
-export default function Home() {
-  return <Heading>Oi</Heading>;
+export default function Index({ data = null }) {
+  return <Home data={data[0]} />;
 }
+
+export const getStaticProps = async () => {
+  const raw = await fetch(config.url + config.defaultSlug + '&populate=deep');
+  const json = await raw.json();
+  const { attributes } = json.data[0];
+  const data = mapData([attributes]);
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
+
+Index.propTypes = {
+  data: P.array,
+};
