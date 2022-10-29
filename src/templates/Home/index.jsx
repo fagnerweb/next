@@ -1,6 +1,5 @@
 import P from 'prop-types';
 import { Base } from '../Base';
-import { PageNotFound } from '../PageNotFound';
 
 import { GridTwoColumn } from '../../components/GridTwoColumn';
 import { GridContent } from '../../components/GridContent';
@@ -10,10 +9,6 @@ import Head from 'next/head';
 import config from '../../config';
 
 export const Home = ({ data }) => {
-  if (!data || data.length) {
-    return <PageNotFound />;
-  }
-
   const { menu, sections, footerHtml, title } = data;
   const { links, text, link, srcImg } = menu;
 
